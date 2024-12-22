@@ -1,8 +1,11 @@
 package com.dailycodework.lakesidehotel.model;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -10,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,21 +32,25 @@ public class Room {
 	private BigDecimal roomPrice;
 	private boolean isBooked = false;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Lob
+	private Blob photo;
+
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<BookedRoom> bookings;
 
 	public Room() {
 		this.bookings = new ArrayList<BookedRoom>();
 	}
-	
+
 	public void addBooking(BookedRoom booking) {
 		if (this.bookings == null) {
 			this.bookings = new ArrayList<BookedRoom>();
-			
+
 		}
 		this.bookings.add(booking);
 		booking.setRoom(this);
 		this.isBooked = true;
-	
+		String bookingCode = RandomStringUtils.randomNumeric(10);
+		booking.setBookingConfirmationCode(bookingCode);
 	}
 }

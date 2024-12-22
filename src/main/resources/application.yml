@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: lakeside-hotel
+  datasource:
+    url: jdbc:mysql://sql12.freesqldatabase.com:3306/sql12753466
+    username: sql12753466
+    password: kWL7KR8n6m
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+      file-size-threshold: 2KB
+
+server:
+  port: 8080
