@@ -48,8 +48,8 @@ public class BookedRoom {
     @Column(name = "confirmation_code")
     private String bookingConfirmationCode;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Sửa thành ManyToOne
-    @JoinColumn(name = "room_id") // Liên kết với cột room_id
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn(name = "room_id") 
     private Room room;
 
     public void calculateTotalNumberOfGuest() {
@@ -66,11 +66,4 @@ public class BookedRoom {
         calculateTotalNumberOfGuest();
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-	public void setBookingConfirmationCode(String bookingConfirmationCode) {
-		this.bookingConfirmationCode = bookingConfirmationCode;
-	}
 }
