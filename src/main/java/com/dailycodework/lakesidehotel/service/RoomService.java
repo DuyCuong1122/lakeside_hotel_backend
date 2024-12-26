@@ -2,6 +2,10 @@ package com.dailycodework.lakesidehotel.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Blob;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,11 +28,32 @@ public class RoomService implements IRoomService {
 		if (!file.isEmpty()) {
 			try {
 				byte[] photoBytes = file.getBytes();
-				room.setPhoto(photoBytes); 
+				room.setPhoto(photoBytes);
 			} catch (IOException e) {
-				e.printStackTrace(); 
+				e.printStackTrace();
 			}
 		}
 		return roomRepository.save(room);
 	}
+
+	@Override
+	public List<String> getAllRoomType() {
+		return roomRepository.findDistinctRoomTypes();
+	}
+
+	@Override
+	public List<Room> getAllRooms() {
+		return roomRepository.findAll();
+	}
+
+	@Override
+	public byte[] getRoomPhotoByRoomId(Long roomId) {
+		Optional<Room> theRoom = roomRepository.findById(roomId);
+		if (theRoom.isEmpty()) {
+			throw new ResourceNotFoundException("Sorry, Room not found");
+		}
+		Blob 
+		return new byte[0];
+	}
+
 }

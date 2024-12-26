@@ -1,6 +1,7 @@
 package com.dailycodework.lakesidehotel.model;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,18 @@ public class Room {
 	public Room() {
 		this.bookings = new ArrayList<BookedRoom>();
 	}
+	
+	public static String randomNumeric(int length) {
+        SecureRandom secureRandom = new SecureRandom();
+        StringBuilder randomNumber = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int digit = secureRandom.nextInt(10);
+            randomNumber.append(digit);
+        }
+
+        return randomNumber.toString();
+    }
 
 	public void addBooking(BookedRoom booking) {
 		if (this.bookings == null) {
@@ -52,7 +65,7 @@ public class Room {
 		this.bookings.add(booking);
 		booking.setRoom(this);
 		this.isBooked = true;
-		String bookingCode = RandomStringUtils.randomNumeric(10);
+		String bookingCode = randomNumeric(10);
 		booking.setBookingConfirmationCode(bookingCode);
 	}
 }
