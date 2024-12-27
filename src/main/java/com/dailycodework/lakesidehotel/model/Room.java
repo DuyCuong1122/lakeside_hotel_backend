@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,7 @@ public class Room {
 	private boolean isBooked = false;
 
 	@Lob
+	@Column(name = "photo", columnDefinition="MEDIUMBLOB")
 	private byte[] photo;
 
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

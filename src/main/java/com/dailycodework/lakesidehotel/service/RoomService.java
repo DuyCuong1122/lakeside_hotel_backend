@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dailycodework.lakesidehotel.exception.ResourceNotFoundException;
 import com.dailycodework.lakesidehotel.model.Room;
 import com.dailycodework.lakesidehotel.repository.RoomRepository;
 
@@ -52,8 +53,8 @@ public class RoomService implements IRoomService {
 		if (theRoom.isEmpty()) {
 			throw new ResourceNotFoundException("Sorry, Room not found");
 		}
-		Blob 
-		return new byte[0];
+		byte[] photoByte = theRoom.get().getPhoto();
+		return photoByte.length > 0 ? photoByte : null;
 	}
 
 }
